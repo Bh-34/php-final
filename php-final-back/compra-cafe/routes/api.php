@@ -1,0 +1,37 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\CafeController;
+use App\Http\Controllers\RegistroController;
+use App\Http\Controllers\FilaController;
+
+Route::prefix('cafes')->group(function () {
+    Route::get('/', [CafeController::class, 'listar']);
+    Route::get('/{id}', [CafeController::class, 'buscar']);
+    Route::post('/', [CafeController::class, 'criar']);
+    Route::delete('/{id}', [CafeController::class, 'excluir']);
+    Route::post('/{id}/comprar', [CafeController::class, 'comprar']);
+});
+
+Route::get('/fila', [FilaController::class, 'listar']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/pedidos', [\App\Http\Controllers\PedidoController::class, 'listar']);
+    Route::get('/pedidos/{id}', [\App\Http\Controllers\PedidoController::class, 'buscar']);
+    Route::post('/pedidos', [\App\Http\Controllers\PedidoController::class, 'criar']);
+});
+
+// Health check route for quick connectivity tests
+Route::get('/ping', function () {
+    return response()->json(['pong' => true], 200);
+});
+
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/registro', [RegistroController::class, 'registro']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/usuarios', [RegistroController::class, 'buscar']);
+    Route::put('/usuarios/{id}', [RegistroController::class, 'atualizar']);
+    Route::delete('/usuarios/{id}', [RegistroController::class, 'excluir']);
+});

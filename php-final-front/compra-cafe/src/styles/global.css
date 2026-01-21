@@ -1,0 +1,22 @@
+/* Global styles for dark red theme */
+:root{
+  --bg: #000000;
+  --surface: #0b0b0b;
+  --primary: #b30000;
+  --primary-contrast: #ffffff;
+  --accent: #ff3333;
+}
+
+html, body, #app {
+  height: 100%;
+  background: var(--bg) !important;
+  color: var(--primary-contrast) !important;
+}
+
+a { color: var(--primary); }
+button, .v-btn { background: var(--primary) !important; color: var(--primary-contrast) !important }
+
+/* Make tables and card backgrounds darker */
+.v-card, .admin-table, .users-section, .cafe-detalhes-container {
+  background: var(--surface) !important;
+}
